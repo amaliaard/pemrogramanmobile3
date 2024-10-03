@@ -4,9 +4,14 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,8 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Chin Themed Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(
-              255, 0, 0, 0), // Warna chin (campuran pink dan abu)
+          seedColor: Color(0xFFCEBACF),
         ),
         useMaterial3: true,
       ),
@@ -28,19 +32,34 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  void _tampil() {
+    String username = usernameController.text;
+    String password = passwordController.text;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Data Akun"),
+          content: Text("Username: $username, Password: $password"),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: Color(0xFF90A4AE), // Warna chin abu kebiruan
+        title: const Text('Login'), // Updated title
+        backgroundColor: Color(0xFF90A4AE),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,27 +68,36 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Welcome Back, Enter Your Credentials to Login',
+                const SizedBox(height: 20),
+                // Title "LOGIN"
+                Text(
+                  'LOGIN',
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Color.fromARGB(255, 19, 19, 19),
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF4E342E),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
+                // Subtitle "Create Your Account"
+                Text(
+                  'Create Your Account',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF4E342E),
+                  ),
+                ),
+                const SizedBox(height: 40),
                 TextFormField(
                   controller: usernameController,
                   decoration: InputDecoration(
                     labelText: 'Username',
-                    labelStyle:
-                        const TextStyle(color: Color.fromARGB(255, 11, 11, 11)),
+                    labelStyle: TextStyle(color: Color(0xFF4E342E)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEBACF)),
                     ),
                   ),
                 ),
@@ -78,43 +106,28 @@ class _LoginPageState extends State<LoginPage> {
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    labelStyle:
-                        const TextStyle(color: Color.fromARGB(255, 8, 8, 8)),
+                    labelStyle: TextStyle(color: Color(0xFF4E342E)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEBACF)),
                     ),
                   ),
                   obscureText: true,
                 ),
-                const SizedBox(height: 16),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Navigate to Forgot Password Page
-                    },
-                    child: const Text('Forgot Password?'),
-                    style: TextButton.styleFrom(
-                      foregroundColor: const Color.fromARGB(255, 5, 5, 5),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Logging in')),
-                    );
+                    // Tampilkan dialog setelah user menekan tombol Login
+                    _tampil();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 49, 81, 86), // Warna tombol login
+                    backgroundColor: Color(0xFFCEBACF),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 12),
+                      horizontal: 30,
+                      vertical: 12,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -127,8 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("Don't have an account?",
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 14, 13, 13))),
+                        style: TextStyle(color: Color(0xFF4E342E))),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -139,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: const Text('Sign Up'),
                       style: TextButton.styleFrom(
-                        foregroundColor: const Color.fromARGB(255, 9, 34, 68),
+                        foregroundColor: Color(0xFFCEBACF),
                       ),
                     ),
                   ],
@@ -157,14 +169,18 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   void _tampil() {
+    String email = emailController.text;
     String username = usernameController.text;
     String password = passwordController.text;
 
@@ -172,8 +188,9 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Data Akun"),
-          content: Text("Username: $username, Password: $password"),
+          title: Text("Data Akun"),
+          content:
+              Text("Email: $email\nUsername: $username\nPassword: $password"),
         );
       },
     );
@@ -183,8 +200,8 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
-        backgroundColor: const Color.fromARGB(255, 101, 131, 147),
+        title: const Text('Sign Up, Create Your Account'),
+        backgroundColor: Color(0xFF90A4AE),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -193,29 +210,31 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'SIGN UP',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Color.fromARGB(255, 18, 18, 18),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Create your account',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromARGB(255, 18, 18, 18),
-                  ),
-                ),
                 const SizedBox(height: 20),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Color(0xFF4E342E)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEBACF)),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: usernameController,
                   decoration: InputDecoration(
                     labelText: 'Username',
+                    labelStyle: TextStyle(color: Color(0xFF4E342E)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEBACF)),
                     ),
                   ),
                 ),
@@ -224,17 +243,39 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
+                    labelStyle: TextStyle(color: Color(0xFF4E342E)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEBACF)),
+                    ),
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: confirmPasswordController,
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    labelStyle: TextStyle(color: Color(0xFF4E342E)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEBACF)),
                     ),
                   ),
                   obscureText: true,
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _tampil,
+                  onPressed: () {
+                    // Tampilkan dialog setelah user menekan tombol Sign Up
+                    _tampil();
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 56, 86, 113),
+                    backgroundColor: Color(0xFFCEBACF),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30, vertical: 12),
                     shape: RoundedRectangleBorder(
@@ -242,8 +283,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   child: const Text('Register',
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 240, 245, 248))),
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
