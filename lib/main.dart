@@ -1,71 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/login.dart';
+import 'home.dart';
+import 'login.dart';
+import 'register.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BakeryStoreApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class BakeryStoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Bakery Store',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.brown,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LoginPage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Beranda"), backgroundColor: Colors.brown),
-      body: Container(
-        child: Column(
-          children: [
-            Text("Nama : Amalia Ardiyani"),
-            Text("Nim : 220112004"),
-            Text("Prodi : Sistem Informasi"),
-            ElevatedButton(
-              onPressed: () {
-// Aksi yang akan dijalankan ketika tombol ditekan
-              },
-              child: const Text('Klik Saya'),
-            ),
-            TextButton(
-              onPressed: () {
-// Aksi yang akan dijalankan ketika tombol ditekan
-              },
-              child: Text('Klik Saya'),
-            ),
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-// Aksi yang akan dijalankan ketika ikon ditekan
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Nama',
-                hintText: 'Masukkan nama Anda',
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (text) {
-// Aksi yang dijalankan ketika teks berubah
-              },
-            ),
-          ],
-        ),
-      ),
+      home: HomePage(),
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
+      },
     );
   }
 }
